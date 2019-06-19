@@ -18,3 +18,7 @@
 .statParagraph {
   margin: 1em;
 }
+
+.fail {
+  color: red;
+}
