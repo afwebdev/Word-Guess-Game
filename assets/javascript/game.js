@@ -7,10 +7,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
     var word = document.getElementById("word");
     var newGameBtn = document.getElementById("gameBtn")
     var guessTrack = document.getElementById("guesses")
+    var guessLeft = document.getElementById("guessLeft")
 
     //DECLARE VARIABLES
     var gameStarted = false;
-    var score = 0;
+    var guessCount = 0;
     var words = [
         "Pikachu",
         "Mewtwo",
@@ -20,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
     ];
     var randHidden = [];
     var randWord = [];
-    var count = 0;
     var lettersGuessed = [];
 
     var avoidKeys = [
@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     function newGameSetup(randHidden) {
         word.innerText = randHidden.join('');
+        guessLeft.innerText = randWord.length + 1;
         start.setAttribute("style", "display: none;")
         newGameBtn.setAttribute("style", "display: inline-block;")
     }
@@ -87,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     document.addEventListener('keyup', function (e) {
         if (gameStarted) {
+            guessLeft.innerText = parseInt(guessLeft.innerText - 1);
             //returns index of potential found key.
             var findLetter = randWord.indexOf(e.key);
             console.log(findLetter)
@@ -104,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 word.innerText = randHidden.join('');
             } else {
                 lettersGuessed.push(e.key)
-                guessTrack.innerText = lettersGuessed.join('');
+                guessTrack.innerText = lettersGuessed.join(', ');
             }
 
             //WINNER WINNER CHICKEN DINNER.

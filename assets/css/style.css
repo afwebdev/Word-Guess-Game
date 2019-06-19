@@ -11,3 +11,10 @@
 .stats {
   margin: 2em;
 }
+
+#word {
+  font-size: 2em;
+}
+.statParagraph {
+  margin: 1em;
+}
