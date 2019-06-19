@@ -23,17 +23,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
     var lettersGuessed = [];
 
     var avoidKeys = [
-        "Meta",
-        "Alt",
-        "Control",
-        "Shift",
-        "Enter",
-        "Backspace"
+        "meta",
+        "alt",
+        "control",
+        "shift",
+        "enter",
+        "backspace"
     ]
-
-
-
-
 
     /*          THIS IS
                 WHERE THE

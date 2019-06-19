@@ -1,3 +1,9 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
 .winner {
   color: green;
 }
@@ -21,4 +27,18 @@
 
 .fail {
   color: red;
+}
+
+header {
+  text-align: center;
+}
+
+#pika {
+  padding-top: 1em;
+  height: 75px;
+}
+
+.infoBar {
+  width: 50%;
+  margin: 0 auto;
 }
