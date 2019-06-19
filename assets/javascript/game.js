@@ -6,9 +6,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
     var start = document.getElementById("startBtn")
     var word = document.getElementById("word");
     var newGameBtn = document.getElementById("gameBtn")
+    var guessTrack = document.getElementById("guesses")
 
     //DECLARE VARIABLES
-    var intro = "Press any key to continue.."
+    var gameStarted = false;
     var score = 0;
     var words = [
         "Pikachu",
@@ -18,7 +19,18 @@ document.addEventListener('DOMContentLoaded', function (e) {
         "Jigglypuff"
     ];
     var randHidden = [];
-    var randWord = []
+    var randWord = [];
+    var count = 0;
+    var lettersGuessed = [];
+
+    var avoidKeys = [
+        "Meta",
+        "Alt",
+        "Control",
+        "Shift",
+        "Enter",
+        "Backspace"
+    ]
 
 
 
@@ -30,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     */
     //On click of button, run function that will return a random string from pokemon array.
     start.onclick = function () {
+        gameStarted = true;
         var randWord = words[Math.floor(Math.random(1) * words.length)].toLowerCase();
         //Send out the random word to external function.
         wordWork(randWord)
@@ -51,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
         randHidden = hiddenLetterArr;
         randWord = randToArr;
 
-
         console.log(randWord);
         console.log(randHidden);
 
@@ -61,30 +73,46 @@ document.addEventListener('DOMContentLoaded', function (e) {
     function newGameSetup(randHidden) {
         word.innerText = randHidden.join('');
         start.setAttribute("style", "display: none;")
-        newGameBtn.setAttribute("style", "display: block;")
+        newGameBtn.setAttribute("style", "display: inline-block;")
     }
 
+    //START NEW GAME INSTANCE
     newGameBtn.onclick = function () {
+        lettersGuessed = [];
+        guessTrack.innerText = ""
+        word.setAttribute("class", "")
         randWord = words[Math.floor(Math.random(1) * words.length)].toLowerCase();
         wordWork(randWord)
     }
 
     document.addEventListener('keyup', function (e) {
-        //returns index of potential found key.
-        var findLetter = randWord.indexOf(e.key);
-        console.log(findLetter)
-        //if a letter (user key press) was found in the chosen random word.
-        if (findLetter > -1) {
-            randHidden[findLetter] = e.key;
-            randWord[findLetter] = "*"
-            console.log(randWord[findLetter]);
-            console.log(findLetter);
-            console.log(randHidden);
-            word.innerText = randHidden.join('');
-        }
-        if (randHidden.indexOf("*") === -1) {
-            console.log("Winner")
-        }
+        if (gameStarted) {
+            //returns index of potential found key.
+            var findLetter = randWord.indexOf(e.key);
+            console.log(findLetter)
+            //Filter out alt/ctrl/function keys
+            if (avoidKeys.indexOf(e.key) > -1) {
+                console.log("BAD KEY")
+            }
+            //if a letter (user key press) was found in the chosen random word.
+            else if (findLetter > -1) {
+                randHidden[findLetter] = e.key;
+                randWord[findLetter] = "*"
+                console.log(randWord[findLetter]);
+                console.log(findLetter);
+                console.log(randHidden);
+                word.innerText = randHidden.join('');
+            } else {
+                lettersGuessed.push(e.key)
+                guessTrack.innerText = lettersGuessed.join('');
+            }
+
+            //WINNER WINNER CHICKEN DINNER.
+            if (randHidden.indexOf("*") === -1) {
+                console.log("Winner")
+                word.setAttribute("class", "winner")
+            }
+        } else { console.log("Game has not started") }
     })
 
 

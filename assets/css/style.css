@@ -1,0 +1,13 @@
+.winner {
+  color: green;
+}
+
+.content {
+  margin-top: 5em;
+  width: 100%;
+  text-align: center;
+}
+
+.stats {
+  margin: 2em;
+}
