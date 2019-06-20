@@ -1,15 +1,22 @@
 //DOM Has loaded. Proceed with work.
 document.addEventListener('DOMContentLoaded', function (e) {
 
-    //Declare DOM object vars
-    var gameDiv = document.getElementById("game")
-    var start = document.getElementById("startBtn")
-    var word = document.getElementById("word");
-    var newGameBtn = document.getElementById("gameBtn")
-    var guessTrack = document.getElementById("guesses")
-    var guessLeft = document.getElementById("guessLeft")
+    let gameDiv = document.getElementById("game")
+    let start = document.getElementById("startBtn")
+    let word = document.getElementById("word")
+    let newGameBtn = document.getElementById("gameBtn")
+    let guessTrack = document.getElementById("guesses")
+    let guessLeft = document.getElementById("guessLeft")
+    let winCount = document.getElementById("winCount")
+
+
+
+
+
+
 
     //DECLARE VARIABLES
+    var count = 0;
     var gameStarted = false;
     var words = [
         "Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran", "Nidorina", "Nidoqueen", "Nidoran", "Nidorino",
@@ -44,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
         //Send out the random word to external function.
         wordWork(randWord)
     }
-
 
 
     function wordWork(word) {
@@ -121,8 +127,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
                 //WINNER WINNER CHICKEN DINNER.
                 if (randHidden.indexOf("*") === -1) {
+                    count++;
+                    winCount.innerText = count;
                     console.log("Winner")
                     word.setAttribute("class", "winner")
+
                 }
             }
 
@@ -130,8 +139,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
 
     })
-
-
 
 
 
