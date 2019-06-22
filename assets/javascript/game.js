@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
         wordWork(randWord)
     }
 
-
     function wordWork(word) {
         //Random word, split into characters for new Array (randToArr)
         var randToArr = word.split("");
@@ -60,14 +59,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
         //Push it out now
         randHidden = hiddenLetterArr;
         randWord = randToArr;
-
-        console.log(randWord);
-        console.log(randHidden);
-
         newGameSetup(hiddenLetterArr)
     }
-
-
 
     function newGameSetup(randHidden) {
         word.innerText = randHidden.join('');
@@ -75,8 +68,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
         start.setAttribute("style", "display: none;")
         newGameBtn.setAttribute("style", "display: inline-block;")
     }
-
-
 
     //START NEW GAME INSTANCE
     newGameBtn.onclick = function () {
