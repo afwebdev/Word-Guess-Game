@@ -1,8 +1,7 @@
 //DOM Has loaded. Proceed with work.
 document.addEventListener('DOMContentLoaded', function (e) {
 
-
-    let gameDiv = document.getElementById("game")
+    //Declaring vars for DOM objects.
     let start = document.getElementById("startBtn")
     let word = document.getElementById("word")
     let newGameBtn = document.getElementById("gameBtn")
@@ -11,11 +10,9 @@ document.addEventListener('DOMContentLoaded', function (e) {
     let winCount = document.getElementById("winCount")
 
 
-
+    //Main game object.
     const pokeGame = {
-        //Declare DOM object vars
-
-
+        //Init a bunch of vars.
         count: 0,
         gameStarted: false,
         words: [
@@ -37,12 +34,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
             "enter",
             "backspace"
         ],
-
         wordWork: function wordWork(word) {
             //Random word, split into characters for new Array (randToArr)
-            var randToArr = word.split("");
+            let randToArr = word.split("");
             //For each letter in randToArr, replace with * and store in new array
-            var hiddenLetterArr = []
+            let hiddenLetterArr = []
             randToArr.forEach(function (x) {
                 hiddenLetterArr.push("*")
             })
@@ -50,47 +46,38 @@ document.addEventListener('DOMContentLoaded', function (e) {
             //Push it out now
             this.randHidden = hiddenLetterArr;
             this.randWord = randToArr;
-
-            console.log(this.randWord);
-            console.log(this.randHidden);
-
-            this.newGame(hiddenLetterArr)
+            this.newGame(hiddenLetterArr);
         },
 
         newGame: function newGameSetup(randHidden) {
             word.innerText = this.randHidden.join('');
             guessLeft.innerText = this.randWord.length + 1;
-            start.setAttribute("style", "display: none;")
-            newGameBtn.setAttribute("style", "display: inline-block;")
+            start.setAttribute("style", "display: none;");
+            newGameBtn.setAttribute("style", "display: inline-block;");
         },
-        keyPress: function keyPress(key) {
-            var key = key.toLowerCase();
+
+        keyPress: function keyPress(input) {
+            let key = input.toLowerCase();
             if (this.gameStarted) {
                 if (guessLeft.innerText <= 0) {
-                    console.log("GAME OVER")
+                    console.log("GAME OVER");
                     word.setAttribute("class", "fail");
-                    word.innerText = "Game Over.."
+                    word.innerText = "Game Over..";
                 }
                 else {
                     //returns index of potential found key.
-                    var findLetter = this.randWord.indexOf(key);
-                    console.log(findLetter)
-
+                    let findLetter = this.randWord.indexOf(key);
                     //Filter out alt/ctrl/function keys
                     if (this.avoidKeys.indexOf(key) > -1) {
-                        console.log("BAD KEY")
                     }
                     //if a letter (user key press) was found in the chosen random word.
                     else if (findLetter > -1) {
                         this.randHidden[findLetter] = key;
-                        this.randWord[findLetter] = "*"
-                        console.log(this.randWord[findLetter]);
-                        console.log(findLetter);
-                        console.log(this.randHidden);
+                        this.randWord[findLetter] = "*";
                         word.innerText = this.randHidden.join('');
                     } else { //Letter not found, add to tracker, and decrement guesses left
                         guessLeft.innerText = parseInt(guessLeft.innerText - 1);
-                        this.lettersGuessed.push(key)
+                        this.lettersGuessed.push(key);
                         guessTrack.innerText = this.lettersGuessed.join(', ');
                     }
 
@@ -98,13 +85,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
                     if (this.randHidden.indexOf("*") === -1) {
                         this.count++;
                         winCount.innerText = this.count;
-                        console.log("Winner")
-                        word.setAttribute("class", "winner")
+                        console.log("Winner");
+                        word.setAttribute("class", "winner");
 
                     }
                 }
 
-            } else { console.log("Game has not started") }
+            } else { console.log("Game has not started"); }
 
         }
 
@@ -117,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     //On click of button, run function that will return a random string from pokemon array.
     start.onclick = function () {
         pokeGame.gameStarted = true;
-        var randWord = pokeGame.words[Math.floor(Math.random(1) * pokeGame.words.length)].toLowerCase();
+        let randWord = pokeGame.words[Math.floor(Math.random(1) * pokeGame.words.length)].toLowerCase();
         //Send out the random word to external function.
         pokeGame.wordWork(randWord)
     }
@@ -132,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         pokeGame.wordWork(pokeGame.randWord)
     }
 
+    //Key press event.
     document.addEventListener('keyup', function (e) {
         pokeGame.keyPress(e.key);
     })

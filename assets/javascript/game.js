@@ -1,17 +1,12 @@
 //DOM Has loaded. Proceed with work.
 document.addEventListener('DOMContentLoaded', function (e) {
 
-    let gameDiv = document.getElementById("game")
     let start = document.getElementById("startBtn")
     let word = document.getElementById("word")
     let newGameBtn = document.getElementById("gameBtn")
     let guessTrack = document.getElementById("guesses")
     let guessLeft = document.getElementById("guessLeft")
     let winCount = document.getElementById("winCount")
-
-
-
-
 
 
 
@@ -105,8 +100,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
             else {
                 //returns index of potential found key.
                 var findLetter = randWord.indexOf(key);
-                console.log(findLetter)
-
                 //Filter out alt/ctrl/function keys
                 if (avoidKeys.indexOf(key) > -1) {
                     console.log("BAD KEY")
@@ -115,9 +108,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 else if (findLetter > -1) {
                     randHidden[findLetter] = key;
                     randWord[findLetter] = "*"
-                    console.log(randWord[findLetter]);
-                    console.log(findLetter);
-                    console.log(randHidden);
                     word.innerText = randHidden.join('');
                 } else { //Letter not found, add to tracker, and decrement guesses left
                     guessLeft.innerText = parseInt(guessLeft.innerText - 1);
