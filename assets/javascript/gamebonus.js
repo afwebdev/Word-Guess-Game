@@ -110,17 +110,16 @@ document.addEventListener('DOMContentLoaded', function (e) {
     //On click of button, run function that will return a random string from pokemon array.
     start.onclick = function () {
         bgAudio.play();
-
         pokeGame.gameStarted = true;
         let randWord = pokeGame.words[Math.floor(Math.random(1) * pokeGame.words.length)].toLowerCase();
         //Send out the random word to external function.
         pokeGame.wordWork(randWord)
     }
 
-    //START NEW GAME INSTANCE
+    //START NEW GAME INSTANCE, revert(clear) variables backt to default.
     newGameBtn.onclick = function () {
         pokeGame.lettersGuessed = [];
-        guessTrack.innerText = ""
+        guessTrack.innerText = "";
         word.setAttribute("class", "")
         pokeGame.randWord = pokeGame.words[Math.floor(Math.random(1) * pokeGame.words.length)].toLowerCase();
         pokeGame.wordWork(pokeGame.randWord)
