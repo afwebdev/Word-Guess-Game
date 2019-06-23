@@ -83,8 +83,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
         wordWork(randWord)
     }
 
-
-
     document.addEventListener('keyup', function (e) {
         var key = e.key.toLowerCase();
         if (gameStarted) {
@@ -120,13 +118,9 @@ document.addEventListener('DOMContentLoaded', function (e) {
                     winCount.innerText = count;
                     console.log("Winner")
                     word.setAttribute("class", "winner")
-
                 }
             }
-
         } else { console.log("Game has not started") }
-
-
     })
 
 
