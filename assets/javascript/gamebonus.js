@@ -1,5 +1,9 @@
 //DOM Has loaded. Proceed with work.
 document.addEventListener('DOMContentLoaded', function (e) {
+    //Audio objects
+    var correctAudio = new Audio('/assets/audio/correct.mp3')
+    var wrongAudio = new Audio('/assets/audio/wrong.mp3')
+
 
     //Declaring vars for DOM objects.
     let start = document.getElementById("startBtn")
@@ -72,22 +76,22 @@ document.addEventListener('DOMContentLoaded', function (e) {
                     }
                     //if a letter (user key press) was found in the chosen random word.
                     else if (findLetter > -1) {
+                        correctAudio.play();
                         this.randHidden[findLetter] = key;
                         this.randWord[findLetter] = "*";
                         word.innerText = this.randHidden.join('');
                     } else { //Letter not found, add to tracker, and decrement guesses left
+                        wrongAudio.play();
                         guessLeft.innerText = parseInt(guessLeft.innerText - 1);
                         this.lettersGuessed.push(key);
                         guessTrack.innerText = this.lettersGuessed.join(', ');
                     }
-
                     //WINNER WINNER CHICKEN DINNER.
                     if (this.randHidden.indexOf("*") === -1) {
                         this.count++;
                         winCount.innerText = this.count;
                         console.log("Winner");
                         word.setAttribute("class", "winner");
-
                     }
                 }
 

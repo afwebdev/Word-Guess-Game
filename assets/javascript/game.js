@@ -1,6 +1,10 @@
 //DOM Has loaded. Proceed with work.
 document.addEventListener('DOMContentLoaded', function (e) {
 
+    var correctAudio = new Audio('/assets/audio/correct.mp3')
+    var wrongAudio = new Audio('/assets/audio/wrong.mp3')
+
+
     let start = document.getElementById("startBtn")
     let word = document.getElementById("word")
     let newGameBtn = document.getElementById("gameBtn")
@@ -97,10 +101,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 }
                 //if a letter (user key press) was found in the chosen random word.
                 else if (findLetter > -1) {
+                    correctAudio.play();
                     randHidden[findLetter] = key;
                     randWord[findLetter] = "*"
                     word.innerText = randHidden.join('');
-                } else { //Letter not found, add to tracker, and decrement guesses left
+                } else {
+                    //Letter not found, add to tracker, and decrement guesses left
+                    wrongAudio.play();
                     guessLeft.innerText = parseInt(guessLeft.innerText - 1);
                     lettersGuessed.push(key)
                     guessTrack.innerText = lettersGuessed.join(', ');
