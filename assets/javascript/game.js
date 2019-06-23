@@ -1,6 +1,6 @@
 //DOM Has loaded. Proceed with work.
 document.addEventListener('DOMContentLoaded', function (e) {
-
+    var bgAudio = new Audio('/assets/audio/bgAudio.mp3')
     var correctAudio = new Audio('/assets/audio/correct.mp3')
     var wrongAudio = new Audio('/assets/audio/wrong.mp3')
 
@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     //On click of button, run function that will return a random string from pokemon array.
     start.onclick = function () {
+        bgAudio.play();
         gameStarted = true;
         var randWord = words[Math.floor(Math.random(1) * words.length)].toLowerCase();
         //Send out the random word to external function.

@@ -1,6 +1,7 @@
 //DOM Has loaded. Proceed with work.
 document.addEventListener('DOMContentLoaded', function (e) {
     //Audio objects
+    var bgAudio = new Audio('/assets/audio/bgAudio.mp3')
     var correctAudio = new Audio('/assets/audio/correct.mp3')
     var wrongAudio = new Audio('/assets/audio/wrong.mp3')
 
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     //Main game object.
     const pokeGame = {
-        //Init a bunch of vars.
+        //Init a bunch of key/vals for pokeGame object
         count: 0,
         gameStarted: false,
         words: [
@@ -38,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
             "enter",
             "backspace"
         ],
+        //WordWork function, takes a randword, splits its characters into an array, also 
+        //creates another array of same length characters using *'s
         wordWork: function wordWork(word) {
             //Random word, split into characters for new Array (randToArr)
             let randToArr = word.split("");
@@ -96,10 +99,9 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 }
 
             } else { console.log("Game has not started"); }
-
         }
-
     }
+
 
     //-------------------\\
     // -EVENT LISTENERS -\\
@@ -107,12 +109,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     //On click of button, run function that will return a random string from pokemon array.
     start.onclick = function () {
+        bgAudio.play();
+
         pokeGame.gameStarted = true;
         let randWord = pokeGame.words[Math.floor(Math.random(1) * pokeGame.words.length)].toLowerCase();
         //Send out the random word to external function.
         pokeGame.wordWork(randWord)
     }
-
 
     //START NEW GAME INSTANCE
     newGameBtn.onclick = function () {
